@@ -1,5 +1,5 @@
 from arklibrary import pathify
-from arkcloud.web.driver.chrome import Chrome
+from webdriver.chrome.chrome import Chrome
 from webdriver.components import Element
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
@@ -17,26 +17,25 @@ class Driver:
     DRIVERS = {}
     __INDEX = 0
 
-    def __init__(self, **kwargs):
-        self.__kwargs = kwargs
-        self._driver = Chrome(**kwargs).bind()
+    def __init__(self, browser: Chrome):
+        self.browser = browser
         self._current_tab = 'about_blank'
-        self.tabs = {self._current_tab: self._driver.window_handles[-1]}
+        self.tabs = {self._current_tab: self.self.browser.selenium.window_handles[-1]}
         self.close_irrelevant_tabs()
         self.__id = Driver.__INDEX
         Driver.DRIVERS[Driver.__INDEX] = self
         Driver.__INDEX += 1
 
     def bind(self):
-        return self._driver
+        return self.browser.selenium
 
     def get(self, url, timeout=0) -> None:
-        if self._driver:
+        if self.self.browser.selenium:
             domain = urlparse(url).netloc
             domain = domain.replace("www.", "")
             if domain in self.tabs:
                 self.switch_tab(domain)
-            self._driver.get(url)
+            self.self.browser.selenium.get(url)
             if domain not in self.tabs:
                 self.tabs[domain] = self.tabs[self._current_tab]
                 del self.tabs[self._current_tab]
@@ -48,60 +47,60 @@ class Driver:
                 self.pause(1)
 
     def switch_tab(self, name) -> None:
-        if self._driver and name in self.tabs and self._current_tab != name:
-            self._driver.switch_to.window(self.tabs[name])
+        if self.self.browser.selenium and name in self.tabs and self._current_tab != name:
+            self.self.browser.selenium.switch_to.window(self.tabs[name])
             self._current_tab = name
 
     def close_tab(self, name: str = None) -> None:
         if name is None:
             name = self._current_tab
-        if self._driver and name in self.tabs:
+        if self.self.browser.selenium and name in self.tabs:
             if len(self.tabs) == 1:
                 Driver.close(self)
             else:
                 prev = self._current_tab
                 if self._current_tab != name:
                     self.switch_tab(name)
-                self._driver.close()
+                self.self.browser.selenium.close()
                 del self.tabs[name]
                 self.switch_tab(prev)
         if len(self.tabs) == 0:
             self.close()
 
     def new_tab(self, key: str=None, url: str=None) -> None:
-        if not self._driver or not url:
+        if not self.self.browser.selenium or not url:
             return
         if key is None or key not in self.tabs:
-            self._driver.execute_script(f"window.open('{url}');")
+            self.self.browser.selenium.execute_script(f"window.open('{url}');")
             if not key:
                 key = self.domain()
-            self.tabs[key] = self._driver.window_handles[-1]
+            self.tabs[key] = self.self.browser.selenium.window_handles[-1]
             self.switch_tab(key)
             self._current_tab = key
         else:
-            self._driver.switch_to.window(self.tabs[key])
-        self._driver.get(url)
+            self.self.browser.selenium.switch_to.window(self.tabs[key])
+        self.self.browser.selenium.get(url)
 
     def switch_to(self, frame: Element) -> None:
-        self._driver.switch_to.frame(frame.ele)
+        self.self.browser.selenium.switch_to.frame(frame.ele)
 
     def domain(self) -> str:
-        if self._driver:
-            netloc = urlparse(self._driver.current_url).netloc
+        if self.self.browser.selenium:
+            netloc = urlparse(self.self.browser.selenium.current_url).netloc
             netloc = netloc.replace("www.", "")
             return netloc
 
     def url(self) -> str:
-        if self._driver:
-            return self._driver.current_url
+        if self.self.browser.selenium:
+            return self.self.browser.selenium.current_url
 
-    def browser(self) -> str:
-        if self._driver:
-            return self._driver.name.title()
+    def browser_name(self) -> str:
+        if self.self.browser.selenium:
+            return self.self.browser.selenium.name.title()
 
     def root_element(self) -> 'Element':
-        element = self._driver.find_element(By.XPATH, './*')
-        return Element(driver=self._driver, element=element)
+        element = self.self.browser.selenium.find_element(By.XPATH, './*')
+        return Element(driver=self.self.browser.selenium, element=element)
 
     def xpath(self, path: str, timeout=0, **kwargs) -> 'Element':
         elements = self.xpaths(path, timeout=timeout, **kwargs)
@@ -120,7 +119,7 @@ class Driver:
         raise TimeoutException(f"\nUnable to find path: {path}")
 
     def elements(self, tag: str = None, timeout=0, class_name=None, text=None, **kwargs) -> list['Element']:
-        if not self._driver:
+        if not self.self.browser.selenium:
             return []
         path = f"//{tag or '*'}" + pathify(text=text, class_name=class_name,  **kwargs)
         try:
@@ -129,14 +128,14 @@ class Driver:
             return []
 
     def execute_script(self, script: str, *args) -> None:
-        if self._driver:
-            return self._driver.execute_script(script, *args)
+        if self.self.browser.selenium:
+            return self.self.browser.selenium.execute_script(script, *args)
 
     def send_button(self, *keys, hold=0, spread=0) -> None:
-        if self._driver:
+        if self.self.browser.selenium:
             alt_keys = {k: v for k, v in Keys.__dict__.items() if k[0] != '_'}
             for key in keys:
-                action = ActionChains(self._driver)
+                action = ActionChains(self.self.browser.selenium)
                 if key.upper() in alt_keys:
                     action.key_down(alt_keys[key.upper()])
                     action.pause(hold)
@@ -162,29 +161,29 @@ class Driver:
                     self.pause(spread)
 
     def send_keys(self, *keys) -> None:
-        if self._driver:
-            action = ActionChains(self._driver)
+        if self.self.browser.selenium:
+            action = ActionChains(self.self.browser.selenium)
             action.send_keys(*keys)
             action.perform()
 
     def accept_alert(self) -> None:
-        if self._driver:
-            self._driver.switch_to.alert.accept()
+        if self.self.browser.selenium:
+            self.self.browser.selenium.switch_to.alert.accept()
 
     def cancel_alert(self) -> None:
-        if self._driver:
-            self._driver.switch_to.alert.dismiss()
+        if self.self.browser.selenium:
+            self.self.browser.selenium.switch_to.alert.dismiss()
 
     def alert_message(self) -> None:
-        if self._driver:
-            return self._driver.switch_to.alert.text
+        if self.self.browser.selenium:
+            return self.self.browser.selenium.switch_to.alert.text
 
     def send_to_alert(self, keys: str) -> None:
-        if self._driver:
-            self._driver.switch_to.alert.send_keys(keys)
+        if self.self.browser.selenium:
+            self.self.browser.selenium.switch_to.alert.send_keys(keys)
 
     def pause(self, seconds: int or float) -> None:
-        if self._driver:
+        if self.self.browser.selenium:
             sleep(seconds)
             # the one below needs an action before the pause
             # action.send_keys("hello")
@@ -192,11 +191,10 @@ class Driver:
             # action.send_keys("world").perform()
 
     def close(self) -> None:
-        if self._driver:
-            self._driver.quit()
+        if self.self.browser.selenium:
+            self.self.browser.quit()
         if self.__id in Driver.DRIVERS:
             del Driver.DRIVERS[self.__id]
-        self._driver = None
         self._current_tab = None
         self.__id = None
         self.__kwargs = {}
@@ -204,33 +202,33 @@ class Driver:
 
     def close_irrelevant_tabs(self) -> None:
         known_handles = set(self.tabs.values())
-        all_handles = self._driver.window_handles
+        all_handles = self.self.browser.selenium.window_handles
         for handle in all_handles:
             if handle not in known_handles:
-                self._driver.switch_to.window(handle)
-                self._driver.close()
-        self._driver.switch_to.window(self.tabs[self._current_tab])
+                self.self.browser.selenium.switch_to.window(handle)
+                self.self.browser.selenium.close()
+        self.self.browser.selenium.switch_to.window(self.tabs[self._current_tab])
 
     def vertical_scroll(self, amount: int) -> None:
-        if self._driver:
-            action = ActionChains(self._driver)
+        if self.self.browser.selenium:
+            action = ActionChains(self.self.browser.selenium)
             action.scroll_by_amount(amount, 0).perform()
 
     def horizontal_scroll(self, amount: int) -> None:
-        if self._driver:
-            action = ActionChains(self._driver)
+        if self.self.browser.selenium:
+            action = ActionChains(self.self.browser.selenium)
             action.scroll_by_amount(0, amount).perform()
 
     def save_png(self, path: str or Path) -> None:
-        if self._driver:
+        if self.self.browser.selenium:
             with open(path, 'wb') as wb:
-                wb.write(self._driver.get_screenshot_as_png())
+                wb.write(self.self.browser.selenium.get_screenshot_as_png())
 
     def png_bytes(self):
-        return self._driver.get_screenshot_as_png()
+        return self.self.browser.selenium.get_screenshot_as_png()
 
     def __contains__(self, site_name):
-        if not self._driver:
+        if not self.self.browser.selenium:
             return False
         return site_name in self.tabs
 
@@ -244,7 +242,7 @@ class Driver:
         self.close_tab(name)
 
     def __len__(self):
-        if not self._driver:
+        if not self.self.browser.selenium:
             return 0
         return len(self.tabs)
 
@@ -264,8 +262,8 @@ class Driver:
 
     def __repr__(self):
         args = ', '.join([f"{k}={repr(v)}" for k, v in self.__kwargs.items()])
-        if self.browser():
-            return f"""<{self.browser()}({args})>"""
+        if self.browser_name():
+            return f"""<{self.browser_name()}({args})>"""
         return f"""</>"""
 
     # def __del__(self):
@@ -308,10 +306,3 @@ class Driver:
         return Driver(**kwargs)
 
 
-if __name__ == "__main__":
-    driver = Driver()
-    driver.get("https://www.google.com")
-    driver.pause(3)
-    print(driver)
-    print(repr(driver))
-    driver.close()
