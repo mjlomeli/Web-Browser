@@ -10,13 +10,8 @@ from pathlib import Path
 
 
 class Chrome:
-    def __init__(
-            self,
-            chrome_driver_path: str or Path = None,
-            extensions: list['Extensions'] = None,
-            chrome_profile: 'ChromeProfile' = None,
-    ):
-        self.selenium = None
+    def __init__(self, chrome_driver_path: str or Path = None):
+        self.selenium: webdriver.Chrome = None
         self.chrome_driver_path = chrome_driver_path
         self.options = Options()
         self.settings = []
@@ -41,7 +36,10 @@ class Chrome:
         # self.selenium = Remote(command_executor=str(chrome_driver_uri, options=self.options.bind())
         service = Service(executable_path=str(self.chrome_driver_path))
         self.selenium = webdriver.Chrome(service=service, options=self.options)
-        return self.selenium
+
+    def quit(self):
+        self.selenium.quit()
+        self.selenium = None
 
     def __repr__(self):
         return f"""<Chrome()>"""
