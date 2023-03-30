@@ -1,0 +1,6 @@
+.idea
+**/dist
+**/src/webdriver.egg-info
+.tox
+.pytest_cache
+.mypy_cache
