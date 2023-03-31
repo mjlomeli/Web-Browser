@@ -2,18 +2,29 @@ from webdriver.chrome import Chrome
 from webdriver import Driver
 import os
 from webdriver.gamepad import Gamepad
+from pathlib import Path
 
 
 def main(driver: Driver):
+    print("Navigating to url")
     driver.get('https://gamepad-tester.com/')
-    #gamepad = Gamepad(driver)
-
-
+    print("waiting for page to load")
+    driver.pause(4)
+    print("starting gamepad")
+    gamepad = Gamepad(driver)
+    print("Finished initializing gamepad")
+    print("connecting to controller")
+    gamepad.connect_controller()
+    print("controller connected")
+    print("sending buttons")
+    gamepad.send_buttons('a', 'x', 'a', 'x', hold=5)
 
 
 if __name__ == '__main__':
     c = Chrome(os.getenv('CHROME_DRIVER'))
     c.change_window(pos_x=500, width=1300, height=1000)
+    c.add_extension('tests/extensions/Dark-Reader.crx')
+
     try:
         d = Driver(c)
         main(d)

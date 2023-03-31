@@ -6,12 +6,12 @@ def controller_listener(driver: Driver, controller: XboxController):
     driver.execute_script(controller.js_update(), controller.encode())
 
 
-class Gamepad(XboxController):
+class Gamepad:
     def __init__(self, driver: Driver):
         self.driver = driver
-        driver.pause(3)
-        self.on_change(controller_listener, driver, self)
-        
+        self.xbox_controller = XboxController()
+        self.xbox_controller.on_change(controller_listener, self.driver, self.xbox_controller)
+
     def connect_controller(self):
         self.driver.execute_script(self.controller.js_connect())
         self.controller.on_change(self.controller_listener, self.driver, self.controller)
