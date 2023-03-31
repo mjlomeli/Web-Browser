@@ -2,7 +2,6 @@ from webdriver.chrome import Chrome
 from webdriver import Driver
 import os
 from webdriver.gamepad import Gamepad
-from pathlib import Path
 
 
 def main(driver: Driver):
