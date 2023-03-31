@@ -70,7 +70,7 @@ Create a new `User variable`:
 - **Variable Value**: C:/YOUR_CHROME_DRIVER_PATH
 
 
-### Mac PC - Bash
+### MacOS - Bash
 Open the terminal and open the bash profile.
 ```shell
 vi ~/.bash_profile
