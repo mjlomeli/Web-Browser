@@ -3,14 +3,26 @@
 
 A Python based SDK for web automation using [Selenium](https://www.selenium.dev/).
 
+## License
+[![License](https://img.shields.io/badge/License-MIT-blue)](https://github.com/mjlomeli/jcp/blob/main/LICENSE)
+[![issues - cards](https://img.shields.io/github/issues/mjlomeli/Web-Driver)](https://github.com/mjlomeli/jcp/issues)
+
+Released under [MIT](/LICENSE) by [@Mauricio](https://github.com/mjlomeli/jcp/blob/main/LICENSE).
+
+**Email** : [Mauricio](mailto:developer.mauricio.jr.lomeli@gmail.com)
 
 # Overview
 
 To use this application you must have any of the following browsers installed:
-- Chrome
-- Firefox
-- Edge
-- Opera
+
+[![Chrome - Compatible](https://img.shields.io/badge/Chrome-Compatible-2ea44f?style=for-the-badge&logo=google+chrome)](https://www.google.com/chrome/)
+
+[![firefox - Compatible (minor artifacts)](https://img.shields.io/badge/firefox-Compatible-2ea44f?style=for-the-badge&logo=firefox)](https://www.mozilla.org/)
+
+[![opera - Compatible](https://img.shields.io/badge/opera-Compatible-2ea44f?style=for-the-badge&logo=opera&logoColor=red)](https://www.opera.com/)
+
+[![edge - Compatible](https://img.shields.io/badge/edge-Compatible-2ea44f?style=for-the-badge&logo=microsoft+edge&logoColor=blue)](https://www.microsoft.com/)
+
 
 
 # [Wiki - Full documentation](https://github.com/mjlomeli/Web-Driver/wiki)
@@ -30,7 +42,7 @@ To use this application you must have any of the following browsers installed:
 In your terminal install the WebDriver package with pip.
 
 ```shell
-pip install WebDriver
+pip install webdriver
 ```
 
 <br />
