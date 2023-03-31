@@ -1,4 +1,4 @@
-# Python Web Driver
+# Python Browser Driver
 
 
 A Python based SDK for web automation using [Selenium](https://www.selenium.dev/).
@@ -42,7 +42,7 @@ To use this application you must have any of the following browsers installed:
 In your terminal install the WebDriver package with pip.
 
 ```shell
-pip install webdriver
+pip install browserdriver
 ```
 
 <br />
