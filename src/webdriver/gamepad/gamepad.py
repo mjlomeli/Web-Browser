@@ -17,7 +17,6 @@ class Gamepad:
         self.controller.on_change(controller_listener, self.driver, self.controller)
 
     def disconnect_controller(self):
-        self.focus()
         self.driver.execute_script(self.controller.js_disconnect())
 
     def disable_controller(self):
