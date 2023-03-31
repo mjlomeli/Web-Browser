@@ -2,7 +2,7 @@ _major_version=0
 _minor_version=0
 _revision=0
 
-_package_name="nitrado"
+_package_name="browserdriver"
 
 # Install build if not already installed
 if ! (pip freeze | grep build) &>/dev/null;
