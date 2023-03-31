@@ -1,1 +1,2 @@
-from webdriver.gamepad.browser import XboxController
+from webdriver.gamepad.gamepad import Gamepad
+
