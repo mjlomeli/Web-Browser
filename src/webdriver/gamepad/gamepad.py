@@ -14,7 +14,7 @@ class Gamepad:
 
     def connect_controller(self):
         self.driver.execute_script(self.controller.js_connect())
-        self.controller.on_change(self.controller_listener, self.driver, self.controller)
+        self.controller.on_change(controller_listener, self.driver, self.controller)
 
     def disconnect_controller(self):
         self.focus()
@@ -22,7 +22,7 @@ class Gamepad:
 
     def disable_controller(self):
         self.driver.execute_script(self.controller.js_disconnect())
-        self.controller.remove_on_change(self.controller_listener)
+        self.controller.remove_on_change(controller_listener)
 
     def send_buttons(self, *keys, hold=0.1, spread: float = 0):
         for key in keys:

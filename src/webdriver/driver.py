@@ -43,7 +43,6 @@ class Driver:
                 del self.tabs[self._current_tab]
                 self._current_tab = domain
             for i in range(timeout if timeout > 0 else 5):
-                print('3:', i)
                 state = self.execute_script('return document.readyState')
                 if state == 'complete':
                     break
