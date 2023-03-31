@@ -35,63 +35,69 @@ pip install WebDriver
 
 <br />
 
-# Examples
+# Browser Drivers
 
-### Connect to Client
-To begin using the API the Client must first be connected to your WebDriver account.
-Once connected to the client, you should have access to any of the API calls.
+Choose the driver from one of the browsers you have installed:
+- Chrome
+- Firefox
+- Opera
+- Edge
 
-```python
-from WebDriver import Chrome
+## Chrome
+### Download the Chrome Driver
+Locate your Chrome browser version. Open the menu list on Chrome and navigate 
+down to the `Help` option. Then click on `About Google Chrome`. In the example 
+below, the driver to download is version `111`.
 
-Chrome.initialize_client("your-api-key")
-api = Chrome()
+> Chrome is up-to-date.
+> 
+> Version 111.#.####.### (Official Build) (64-bit)
+
+Navigate over to [ChromeDriver](https://chromedriver.chromium.org/downloads) and download
+the driver which compliments your browser.
+
+
+## Environment Variables 
+Place the Chrome Driver somewhere accessible by your project. Copy the path location of
+the Chrome Driver.
+
+### Windows PC
+Open the system properties in the control panel. At the bottom right, click on 
+`Environments Variables...`. A new window should pop up.
+
+Create a new `User variable`:
+- **Variable Name**: CHROME_DRIVER
+- **Variable Value**: C:/YOUR_CHROME_DRIVER_PATH
+
+
+### Mac PC - Bash
+Open the terminal and open the bash profile.
+```shell
+vi ~/.bash_profile
 ```
 
-**or**
-
-```python
-from WebDriver import Chrome
-
-api = Chrome("your-api-key")
+Write into the editor:
+```shell
+export CHROME_DRIVER=./YOUR_CHROME_DRIVER_PATH
 ```
 
-### Services
-This example highlights how to get the service.
+
+## Example
+Starting the WebDriver.
 
 ```python
-from WebDriver import Chrome
+from webdriver import Driver
+from webdriver.chrome import Chrome
+import os
 
-api = Chrome("your-api-key")
+chrome = Chrome(os.getenv('CHROME_DRIVER'))
+driver = Driver(chrome)
+driver.get('https://www.google.com')
 
-services = api.services
-print(services)
-```
-```python
-[
-    <Service(id=1011111, username='ni11111_1', details={'address': '111.111.111.111:9996', 'name': '[API] My-Server-1', 'game': 'ARK: Survival Evolved (Xbox One)', 'portlist_short': 'arkxb', 'folder_short': 'arkxb', 'slots': 70})>,
-    <Service(id=1011112, username='ni11111_1', details={'address': '111.111.111.112:9996', 'name': '[API] My-Server-2', 'game': 'ARK: Survival Evolved (Xbox One)', 'portlist_short': 'arkxb', 'folder_short': 'arkxb', 'slots': 70})>,
-    <Service(id=1011113, username='ni11111_1', details={'address': '111.111.111.113:9996', 'name': '[API] My-Server-3', 'game': 'ARK: Survival Evolved (Xbox One)', 'portlist_short': 'arkxb', 'folder_short': 'arkxb', 'slots': 70})>
-]
-``` 
 
-#### GameServer
-This example highlights how to get the gameserver.
-
-```python
-from WebDriver import Chrome
-
-api = Chrome("your-api-key")
-
-gameserver = api.game_servers
-print(gameserver)
-```
-```python
-[
-    <GameServer(service_id=11111111, status='started', query={'server_name': '[API] My-Server-1', 'connect_ip': '111.111.111.111:9996', 'map': 'LostIsland', 'version': '943.10', 'player_current': 0, 'player_max': 70, 'players': []})>,
-    <GameServer(service_id=11111112, status='started', query={'server_name': '[API] My-Server-2', 'connect_ip': '111.111.111.112:9996', 'map': 'Ragnarok', 'version': '943.10', 'player_current': 0, 'player_max': 70, 'players': []})>,
-    <GameServer(service_id=11111113, status='started', query={'server_name': '[API] My-Server-3', 'connect_ip': '111.111.111.113:9996', 'map': 'TheIsland', 'version': '943.10', 'player_current': 0, 'player_max': 70, 'players': []})>
-]
+# Must quit chrome before quitting the application
+# else the driver will remain hanging until PC reboot.
+chrome.quit()
 ```
 
 
