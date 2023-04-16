@@ -1,4 +1,4 @@
-# Python Browser Driver
+# Python Web Browser Driver
 
 
 A Python based SDK for web automation using [Selenium](https://www.selenium.dev/).
