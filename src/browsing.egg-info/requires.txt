@@ -1,0 +1,11 @@
+wheel
+requests==2.*
+selenium==4.*
+beautifulsoup4==4.*
+
+[testing]
+pytest>=6.0
+pytest-cov>=2.0
+mypy>=0.910
+flake8>=3.9
+tox>=3.24
