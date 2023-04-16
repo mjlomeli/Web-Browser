@@ -2,7 +2,7 @@ import json
 from abc import abstractmethod
 from collections.abc import Iterable
 import re
-from webbrowser.gamepad.components.event import Event
+from web_browser.gamepad.components.event import Event
 
 
 class Base:

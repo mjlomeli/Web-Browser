@@ -1,7 +1,7 @@
-from webbrowser.chrome import Chrome
-from webbrowser import Driver
+from web_browser.chrome import Chrome
+from web_browser import Driver
 import os
-from webbrowser.gamepad import Gamepad
+from web_browser.gamepad import Gamepad
 
 
 def main(driver: Driver):

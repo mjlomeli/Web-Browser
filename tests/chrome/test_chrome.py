@@ -1,4 +1,4 @@
-from webbrowser.chrome.chrome import Chrome
+from web_browser.chrome.chrome import Chrome
 import os
 import unittest
 

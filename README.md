@@ -39,7 +39,7 @@ To use this application you must have any of the following browsers installed:
 <br />
 
 # Installation
-In your terminal install the `WebBrowser` package with pip.
+In your terminal install the `Web-Browser` package with pip.
 
 ```shell
 pip install browserdriver
@@ -95,11 +95,11 @@ export CHROME_DRIVER=./YOUR_CHROME_DRIVER_PATH
 
 
 ## Example
-Starting the `WebBrowser` package.
+Starting the `Web-Browser` package.
 
 ```python
-from webbrowser import Driver
-from webbrowser.chrome import Chrome
+from web_browser import Driver
+from web_browser.chrome import Chrome
 import os
 
 chrome = Chrome(os.getenv('CHROME_DRIVER'))

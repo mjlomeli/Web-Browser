@@ -1,5 +1,5 @@
-from webbrowser.gamepad.components import Base
-from webbrowser.gamepad.components import Button
+from web_browser.gamepad.components import Base
+from web_browser.gamepad.components import Button
 
 
 class JoyStick(Base):

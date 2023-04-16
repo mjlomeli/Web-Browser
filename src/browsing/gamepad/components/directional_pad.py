@@ -1,4 +1,4 @@
-from webbrowser.gamepad.components import Base, Button
+from web_browser.gamepad.components import Base, Button
 
 
 class DirectionalPad(Base):

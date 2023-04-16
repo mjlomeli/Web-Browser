@@ -1,1 +1,1 @@
-from webbrowser.driver import Driver
+from web_browser.driver import Driver

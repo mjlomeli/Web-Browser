@@ -1,2 +1,2 @@
-from webbrowser.gamepad.gamepad import Gamepad
+from web_browser.gamepad.gamepad import Gamepad
 

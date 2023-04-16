@@ -1,4 +1,4 @@
-from webbrowser.gamepad.components import Base
+from web_browser.gamepad.components import Base
 
 
 class Button(Base):
