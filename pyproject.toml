@@ -1,7 +1,10 @@
 [build-system]
 requires = [
     "setuptools>=42",
-    "wheel"
+    "wheel",
+    "requests>=2.*",
+    "selenium>=0.*",
+    "beautifulsoup>=0.*"
 ]
 build-backend = "setuptools.build_meta"
 
