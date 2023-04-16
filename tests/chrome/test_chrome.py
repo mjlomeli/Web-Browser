@@ -1,4 +1,4 @@
-from webdriver.chrome.chrome import Chrome
+from browsing.chrome.chrome import Chrome
 import os
 import unittest
 

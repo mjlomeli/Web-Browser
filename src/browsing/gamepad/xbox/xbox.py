@@ -1,5 +1,5 @@
-from webdriver.gamepad.components import Base, JoyStick, Button, DirectionalPad
-from webdriver.gamepad.components import ShoulderButtons, Menus
+from browsing.gamepad.components import Base, JoyStick, Button, DirectionalPad
+from browsing.gamepad.components import ShoulderButtons, Menus
 from time import time
 from arkcloud import gamepad
 import os

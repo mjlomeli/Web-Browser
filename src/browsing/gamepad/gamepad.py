@@ -1,5 +1,5 @@
-from webdriver.gamepad.xbox.xbox import XboxController
-from webdriver.driver import Driver
+from browsing.gamepad.xbox.xbox import XboxController
+from browsing.driver import Driver
 
 
 def controller_listener(driver: Driver, controller: XboxController):

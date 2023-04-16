@@ -1,4 +1,4 @@
-from webdriver.gamepad.components import Base, Button
+from browsing.gamepad.components import Base, Button
 
 
 class DirectionalPad(Base):

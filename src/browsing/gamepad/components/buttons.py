@@ -1,4 +1,4 @@
-from webdriver.gamepad.components import Base
+from browsing.gamepad.components import Base
 
 
 class Button(Base):

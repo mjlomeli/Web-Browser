@@ -1,5 +1,5 @@
-from webdriver.gamepad.components import Button
-from webdriver.gamepad.components import Base
+from browsing.gamepad.components import Button
+from browsing.gamepad.components import Base
 
 
 class ShoulderButtons(Base):
