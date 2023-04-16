@@ -1,3 +1,3 @@
-from browsing.components.element import Element
+from webbrowser.components.element import Element
 
 __all__ = ['Element']

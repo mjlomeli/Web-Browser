@@ -1,5 +1,5 @@
-from browsing.gamepad.components import Base
-from browsing.gamepad.components import Button
+from webbrowser.gamepad.components import Base
+from webbrowser.gamepad.components import Button
 
 
 class Menus(Base):

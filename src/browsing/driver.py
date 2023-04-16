@@ -1,6 +1,6 @@
 from arklibrary import pathify
-from browsing.chrome.chrome import Chrome
-from browsing.components import Element
+from webbrowser.chrome.chrome import Chrome
+from webbrowser.components import Element
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
